@@ -1,207 +1,279 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Fluxo – Jogo Responsável</title>
+  <meta charset="UTF-8">
+  <title>Blaze – Jogo Responsável</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 20px;
-}
+    .box {
+      width: 420px;
+      border: 2px solid #e10600;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+    h2 {
+      color: #e10600;
+      margin-bottom: 16px;
+    }
 
-h1, h2 {
-  text-align: center;
-}
+    p {
+      color: #333;
+      line-height: 1.5;
+      text-align: left;
+    }
 
-.question {
-  margin: 25px 0;
-}
+    ul {
+      text-align: left;
+      color: #333;
+    }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-}
+    a {
+      color: #e10600;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-.yes { background: #2563eb; color: white; }
-.no { background: #6b7280; color: white; }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      background: #e10600;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.baixo { background: #d1fae5; }
-.medio { background: #fef9c3; }
-.alto { background: #ffedd5; }
-.critico { background: #fee2e2; }
+    button:hover {
+      background: #b00500;
+    }
 
-.result {
-  margin-top: 25px;
-  padding: 20px;
-  border-radius: 8px;
-  display: none;
-}
+    .secondary {
+      background: #555;
+    }
 
-.script {
-  background: #f1f5f9;
-  padding: 15px;
-  border-left: 5px solid #2563eb;
-  margin-top: 15px;
-  white-space: pre-line;
-}
+    .secondary:hover {
+      background: #333;
+    }
 
-footer {
-  text-align: center;
-  margin-top: 40px;
-}
+    .logo-area {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-footer img {
-  max-width: 130px;
-  opacity: 0.8;
-}
-</style>
+    .logo-area img {
+      width: 100px;
+      opacity: 0.9;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
-
-<h1>Fluxo – Jogo Responsável</h1>
-<p style="text-align:center;">Fluxo interativo para agentes de atendimento</p>
-
-<!-- ETAPA 1 -->
-<div class="question" id="etapa1">
-  <h2>O cliente mencionou algo relacionado a apostas/jogo e problemas pessoais?</h2>
-  <button class="no" onclick="encerrar()">Não</button>
-  <button class="yes" onclick="mostrarRisco()">Sim</button>
-</div>
-
-<!-- ETAPA 2 -->
-<div class="question" id="etapa2" style="display:none;">
-  <h2>Classificação de risco (selecione apenas UMA opção)</h2>
-
-  <button class="baixo" onclick="resultadoBaixo()">🟢 Risco Baixo</button>
-  <button class="medio" onclick="resultadoMedio()">🟡 Risco Médio</button>
-  <button class="alto" onclick="resultadoAlto()">🟠 Risco Alto</button>
-  <button class="critico" onclick="resultadoCritico()">🔴 Risco Crítico</button>
-</div>
-
-<!-- RESULTADOS -->
-<div class="result baixo" id="resBaixo">
-<h2>🟢 RISCO BAIXO</h2>
-<p><strong>Ação do agente:</strong><br>
-• Acolhimento do cliente<br>
-• Seguir atendimento normalmente</p>
-
-<div class="script">
-SCRIPT – RISCO BAIXO
-
-Percebemos seu comentário e gostaríamos de reforçar nosso compromisso com o uso saudável da plataforma.
-Se desejar, você pode acessar nosso hotsite de Jogo Responsável para realizar um autoteste e refletir sobre seus hábitos.
-Estamos à disposição para qualquer orientação adicional.
-</div>
-</div>
-
-<div class="result medio" id="resMedio">
-<h2>🟡 RISCO MÉDIO</h2>
-<p><strong>Ação do agente:</strong><br>
-• Sugerir ferramentas de Jogo Responsável<br>
-• Autolimitação, Suspensão ou Autoexclusão</p>
-
-<div class="script">
-SCRIPT – RISCO MÉDIO
-
-Entendemos sua preocupação e queremos garantir que você tenha o suporte necessário.
-Recomendamos acessar nosso hotsite de Jogo Responsável, onde você encontrará orientações e ferramentas de controle.
-Caso precise, você pode utilizar autolimitação, suspensão ou autoexclusão na aba de restrições.
-</div>
-</div>
-
-<div class="result alto" id="resAlto">
-<h2>🟠 RISCO ALTO</h2>
-<p><strong>Ação do agente:</strong><br>
-• Encaminhar para Supervisor<br>
-• Caso de Jogo Responsável</p>
-
-<div class="script">
-SCRIPT – RISCO ALTO
-
-Agradecemos por compartilhar essa situação.
-Pelas informações apresentadas, é importante que você receba orientação especializada.
-Pedimos que aguarde enquanto encaminhamos seu caso para o time responsável por Jogo Responsável.
-</div>
-</div>
-
-<div class="result critico" id="resCritico">
-<h2>🔴 RISCO CRÍTICO</h2>
-<p><strong>Ação do agente (URGENTE):</strong><br>
-• Encaminhar imediatamente para Supervisor<br>
-• Jogo Responsável</p>
-
-<div class="script">
-SCRIPT – RISCO CRÍTICO
-
-Sinto muito que você esteja passando por isso.
-Sua segurança é nossa prioridade neste momento.
-Pedimos que você entre em contato imediatamente com nosso atendimento especializado,
-onde profissionais preparados poderão ajudar agora.
-</div>
-</div>
-
-</div>
-
-<footer>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Blaze_logo.png" alt="Blaze">
-</footer>
+<div class="box" id="app"></div>
 
 <script>
-function mostrarRisco() {
-  document.getElementById("etapa1").style.display = "none";
-  document.getElementById("etapa2").style.display = "block";
+const app = document.getElementById("app");
+
+function tela(conteudo) {
+  app.innerHTML = conteudo;
 }
 
-function encerrar() {
-  alert("Seguir atendimento normalmente.");
+/* TELA INICIAL */
+function inicio() {
+  tela(`
+    <h2>Jogo Responsável</h2>
+    <p>O cliente mencionou algo relacionado a apostas/jogo e problemas pessoais?</p>
+    <button onclick="naoMencionou()">Não</button>
+    <button onclick="classificacao()">Sim</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
 
-function esconderResultados() {
-  document.getElementById("resBaixo").style.display = "none";
-  document.getElementById("resMedio").style.display = "none";
-  document.getElementById("resAlto").style.display = "none";
-  document.getElementById("resCritico").style.display = "none";
+/* NÃO MENCIONOU */
+function naoMencionou() {
+  tela(`
+    <h2>Orientação</h2>
+    <p>
+      O cliente não mencionou problemas relacionados a apostas ou jogo.<br><br>
+      ➜ Siga o atendimento normalmente.<br>
+      ➜ Este fluxo deve ser utilizado apenas quando o cliente citar impactos
+      causados por apostas.
+    </p>
+
+    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
 
-function resultadoBaixo() {
-  esconderResultados();
-  document.getElementById("resBaixo").style.display = "block";
+/* CLASSIFICAÇÃO */
+function classificacao() {
+  tela(`
+    <h2>Classificação de Risco</h2>
+    <p>Selecione a opção que melhor representa o relato do cliente:</p>
+
+    <button onclick="baixo()">🟢 Risco Baixo</button>
+    <button onclick="medio()">🟡 Risco Médio</button>
+    <button onclick="alto()">🟠 Risco Alto</button>
+    <button onclick="critico()">🔴 Risco Crítico</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
 
-function resultadoMedio() {
-  esconderResultados();
-  document.getElementById("resMedio").style.display = "block";
+/* RISCO BAIXO */
+function baixo() {
+  tela(`
+    <h2>🟢 Risco Baixo</h2>
+    <p>
+      Exemplos de falas do cliente:
+    </p>
+    <ul>
+      <li>“Joguei mais do que devia, mas está sob controle”</li>
+      <li>“Só queria tentar ganhar de volta”</li>
+    </ul>
+
+    <p>
+      ➜ Realizar acolhimento do cliente.<br>
+      ➜ Utilizar o script de Jogo Responsável disponível no material oficial.
+    </p>
+
+    <p>
+      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
+        Acessar material de apoio
+      </a>
+    </p>
+
+    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
 
-function resultadoAlto() {
-  esconderResultados();
-  document.getElementById("resAlto").style.display = "block";
+/* RISCO MÉDIO */
+function medio() {
+  tela(`
+    <h2>🟡 Risco Médio</h2>
+    <p>
+      Exemplos de falas do cliente:
+    </p>
+    <ul>
+      <li>“Não consigo parar quando começo”</li>
+      <li>“Estou dormindo mal por causa das apostas”</li>
+      <li>“Problemas com a família”</li>
+    </ul>
+
+    <p>
+      ➜ Oferecer ferramentas de Jogo Responsável:
+    </p>
+    <ul>
+      <li>Autolimitação</li>
+      <li>Suspensão</li>
+      <li>Autoexclusão</li>
+    </ul>
+
+    <p>
+      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
+        Acessar material de apoio
+      </a>
+    </p>
+
+    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
 
-function resultadoCritico() {
-  esconderResultados();
-  document.getElementById("resCritico").style.display = "block";
+/* RISCO ALTO */
+function alto() {
+  tela(`
+    <h2>🟠 Risco Alto</h2>
+    <p>
+      Exemplos de falas do cliente:
+    </p>
+    <ul>
+      <li>“Peguei dinheiro emprestado para apostar”</li>
+      <li>“Não consigo pagar minhas contas”</li>
+      <li>“Meu relacionamento acabou por causa disso”</li>
+    </ul>
+
+    <p>
+      ➜ Encaminhar imediatamente para o <b>Supervisor</b>.<br>
+      ➜ Utilizar o script específico de risco alto.
+    </p>
+
+    <p>
+      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
+        Acessar material de apoio
+      </a>
+    </p>
+
+    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
+
+/* RISCO CRÍTICO */
+function critico() {
+  tela(`
+    <h2>🔴 Risco Crítico</h2>
+    <p>
+      Exemplos de falas do cliente:
+    </p>
+    <ul>
+      <li>“Não vejo mais saída”</li>
+      <li>“Não quero mais estar aqui”</li>
+    </ul>
+
+    <p>
+      ➜ Encaminhar imediatamente para o <b>Supervisor</b>.<br>
+      ➜ Seguir rigorosamente o script de risco crítico.
+    </p>
+
+    <p>
+      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
+        Acessar material de apoio
+      </a>
+    </p>
+
+    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+/* START */
+inicio();
 </script>
 
 </body>
