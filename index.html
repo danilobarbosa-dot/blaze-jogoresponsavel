@@ -194,14 +194,14 @@ function complete() {
 function saque48() {
   tela(`
     <h2>Saque acima de 48 horas</h2>
-    <p>Quando um saque ultrapassa <b>48 horas</b>, é necessário verificar o <b>status da transação</b>.</p>
-    <p>Se o status estiver como <b>Pending Review</b> ou <b>Waiting Input</b> após 48 horas, preencher o formulário:</p>
+    <p>Verifique o <b>status da transação</b> no sistema:</p>
+    <p>Se <b>Pending Review/Waiting Input</b>:</p>
     <p><a href="https://support.blaze-help.com/hc/pt-br/articles/13980562814492-Base-Chat-Transaction-Issues-Form" target="_blank">Acessar formulário de transações</a></p>
     <ul>
       <li>Preencher planilha BCTIF</li>
       <li><a href="https://docs.google.com/document/d/1nAdViRyXykIXYSqihMK8LlVlXgCsm09vH6qBhmdWN6E/edit" target="_blank">Procedimentos BCTIF</a></li>
     </ul>
-    <p>Se status for <b>Complete</b> e cliente não localizou:</p>
+    <p>Se <b>Complete</b> e cliente não localizou:</p>
     <p><a href="https://docs.google.com/document/d/19_tKhSg62ZGcmtLplxcYjoGRfxt43z5FfuG476dNE50/edit" target="_blank">Acessar formulário de contato</a></p>
     <button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
@@ -220,9 +220,7 @@ function inicioJR() {
     <p style="font-size: 14px; margin-top: 15px;">
       📄 <b>Material de apoio</b><br>
       Siga com o fluxograma aberto durante o atendimento.<br>
-      <a href="https://drive.google.com/file/d/1y0IAo5QAiXIH29zt8cofJHWLLo5uD_V3/view?usp=drive_link" target="_blank">
-        Acessar fluxograma em PDF
-      </a>
+      <a href="https://drive.google.com/file/d/1y0IAo5QAiXIH29zt8cofJHWLLo5uD_V3/view?usp=drive_link" target="_blank">Acessar fluxograma em PDF</a>
     </p>
 
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
@@ -351,11 +349,34 @@ Cashback (BRL ${perdas.toFixed(2)} - ${p}%) = BRL ${valorFinalCb.toFixed(2)}
 
 function executarCopia() {
   const texto = document.getElementById("preOutput").innerText;
-  navigator.clipboard.writeText(texto).then(() => {
-    const btn = document.getElementById("btnCopiar");
-    btn.innerText = "✅ Copiado!";
-    setTimeout(() => btn.innerText = "Copiar Mensagem", 2000);
-  });
+
+  // Tenta o método moderno primeiro
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(sucessoCopia);
+  } else {
+    // Fallback: Método antigo (cria textarea invisível)
+    const tempTextArea = document.createElement("textarea");
+    tempTextArea.value = texto;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    try {
+      document.execCommand('copy');
+      sucessoCopia();
+    } catch (err) {
+      alert("Erro ao copiar. Por favor, selecione e copie manualmente.");
+    }
+    document.body.removeChild(tempTextArea);
+  }
+}
+
+function sucessoCopia() {
+  const btn = document.getElementById("btnCopiar");
+  btn.innerText = "✅ Copiado!";
+  btn.style.background = "#28a745"; // Muda para verde
+  setTimeout(() => {
+    btn.innerText = "Copiar Mensagem";
+    btn.style.background = "#e10600"; // Volta para vermelho
+  }, 2000);
 }
 
 menu();
