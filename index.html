@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Blaze – Fluxos de Atendimento</title>
+  <title>Blaze – Suporte Unificado</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,12 +15,14 @@
     }
 
     .box {
-      width: 420px;
+      width: 450px;
       border: 2px solid #e10600;
       border-radius: 10px;
       padding: 24px;
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
       text-align: center;
+      overflow-y: auto;
+      max-height: 95vh;
     }
 
     h2 {
@@ -37,6 +39,16 @@
     ul {
       text-align: left;
       color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
 
     a {
@@ -70,19 +82,37 @@
       background: #333;
     }
 
+    pre {
+      background: #f7f7f7;
+      padding: 15px;
+      white-space: pre-wrap;
+      text-align: left;
+      font-size: 13px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+
     .logo-area {
       margin-top: 20px;
       text-align: center;
     }
 
     .logo-area img {
-      width: 100px;
+      width: 90px;
       opacity: 0.9;
     }
 
     .info {
       font-size: 14px;
       margin-top: 15px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-size: 13px;
+      font-weight: bold;
+      color: #444;
     }
   </style>
 </head>
@@ -92,25 +122,28 @@
 
 <script>
 const app = document.getElementById("app");
-function tela(html){ app.innerHTML = html; }
 
-/* MENU INICIAL */
+function tela(conteudo) {
+  app.innerHTML = conteudo;
+}
+
+/* ===================== MENU PRINCIPAL ===================== */
 function menu() {
   tela(`
     <h2>Fluxos de Atendimento</h2>
     <p>Selecione o tipo de atendimento:</p>
 
-    <button onclick="inicioSaque()">💰 Problemas de Saque</button>
+    <button onclick="inicioSaque()">💸 Problemas de Saque</button>
     <button onclick="inicioJR()">🎯 Jogo Responsável</button>
-
+    <button onclick="inicioCashback()">🧮 Cálculo Individual Cashback</button>
+    
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
     </div>
   `);
 }
 
-/* ===================== SAQUE ===================== */
-
+/* ===================== PROBLEMAS DE SAQUE ===================== */
 function inicioSaque() {
   tela(`
     <h2>Problemas de Saque</h2>
@@ -118,7 +151,6 @@ function inicioSaque() {
     <button onclick="saqueRecebido()">Sim</button>
     <button onclick="tempoSaque()">Não</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
     </div>
@@ -128,13 +160,9 @@ function inicioSaque() {
 function saqueRecebido() {
   tela(`
     <h2>Ótimo!</h2>
-    <p>
-      Os saques podem levar de <b>2 até 48 horas</b> para conclusão.
-      Oriente o cliente a aguardar o prazo padrão.
-    </p>
-
+    <p>Os saques podem levar de <b>2 até 48 horas</b> para que nosso intermediário financeiro conclua o processamento.<br><br>Oriente sempre o cliente a aguardar o prazo padrão.</p>
+    <button class="secondary" onclick="inicioSaque()">Reiniciar atendimento</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
     </div>
@@ -148,73 +176,49 @@ function tempoSaque() {
     <button onclick="statusSaque()">Menos de 48 horas</button>
     <button onclick="saque48()">Mais de 48 horas</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
 function statusSaque() {
   tela(`
     <h2>Status do Saque</h2>
+    <p>Qual o status do saque no sistema?</p>
     <button onclick="pending()">Pending Review / Waiting Input</button>
+    <button onclick="refunded()">Refunded</button>
     <button onclick="complete()">Complete</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
 function pending() {
-  tela(`
-    <h2>Saque em análise</h2>
-    <p>Oriente o cliente a aguardar o prazo padrão.</p>
+  tela(`<h2>Saque em análise</h2><p>Oriente o cliente a aguardar o prazo padrão.<br><br>Envie o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
+}
 
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
-  `);
+function refunded() {
+  tela(`<h2>Saque reembolsado</h2><p>O saque foi reembolsado a pedido do usuário. Oriente o cliente a solicitar novamente e enviar o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function complete() {
-  tela(`
-    <h2>Saque concluído</h2>
-    <p>
-      O valor já foi enviado ao banco selecionado.
-      Oriente a verificar o extrato bancário.
-    </p>
-
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
-  `);
+  tela(`<h2>Saque concluído</h2><p>O valor já foi enviado ao banco. Oriente a verificar o extrato ou utilizar <b>/contact form</b>.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function saque48() {
   tela(`
     <h2>Saque acima de 48 horas</h2>
-    <p>
-      Se o status estiver <b>Pending Review</b> ou <b>Waiting Input</b>,
-      oriente o cliente a preencher o formulário de problemas de transações.
-    </p>
-
+    <p>Quando um saque ultrapassa <b>48 horas</b>, é necessário verificar o <b>status da transação</b>.</p>
+    <p>Se o status estiver como <b>Pending Review</b> ou <b>Waiting Input</b> após 48 horas, preencher o formulário:</p>
+    <p><a href="https://support.blaze-help.com/hc/pt-br/articles/13980562814492-Base-Chat-Transaction-Issues-Form" target="_blank">Acessar formulário de problemas de transações</a></p>
+    <ul>
+      <li>Preencher planilha BCTIF</li>
+      <li><a href="https://docs.google.com/document/d/1nAdViRyXykIXYSqihMK8LlVlXgCsm09vH6qBhmdWN6E/edit" target="_blank">Procedimentos BCTIF</a></li>
+    </ul>
+    <p>Se status for <b>Complete</b> e cliente não localizou:</p>
+    <p><a href="https://docs.google.com/document/d/19_tKhSg62ZGcmtLplxcYjoGRfxt43z5FfuG476dNE50/edit" target="_blank">Acessar formulário de contato</a></p>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
 /* ===================== JOGO RESPONSÁVEL ===================== */
-
 function inicioJR() {
   tela(`
     <h2>Jogo Responsável</h2>
@@ -234,22 +238,15 @@ function inicioJR() {
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
     </div>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
   `);
 }
 
 function naoJR() {
   tela(`
     <h2>Orientação</h2>
-    <p>
-      O cliente não mencionou problemas relacionados a apostas.<br><br>
-      ➜ Siga o atendimento normalmente.
-    </p>
-
+    <p>O cliente não mencionou problemas relacionados a apostas.<br><br>➜ Siga o atendimento normalmente.</p>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
@@ -260,71 +257,133 @@ function classificacaoJR() {
     <button onclick="jrMedio()">🟡 Risco Médio</button>
     <button onclick="jrAlto()">🟠 Risco Alto</button>
     <button onclick="jrCritico()">🔴 Risco Crítico</button>
-
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
 function jrBaixo() {
-  tela(`
-    <h2>🟢 Risco Baixo</h2>
-    <p>Realizar acolhimento e seguir script de Jogo Responsável.</p>
-
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
-  `);
+  tela(`<h2>🟢 Risco Baixo</h2><p>Realizar acolhimento e seguir o script de Jogo Responsável.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function jrMedio() {
-  tela(`
-    <h2>🟡 Risco Médio</h2>
-    <p>
-      Sugerir ferramentas de Jogo Responsável:
-      autolimitação, suspensão ou autoexclusão.
-    </p>
-
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
-  `);
+  tela(`<h2>🟡 Risco Médio</h2><p>Sugerir ferramentas de Jogo Responsável: autolimitação, suspensão temporária ou autoexclusão.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function jrAlto() {
   tela(`
     <h2>🟠 Risco Alto</h2>
-    <p>Encaminhar imediatamente para o supervisor.</p>
-
+    <p><b>Ações necessárias:</b></p>
+    <ul>
+      <li>Enviar script descrito no fluxo.</li>
+      <li>Colocar a tag <b>responsible gambling</b> no Zendesk.</li>
+      <li>Encaminhar imediatamente para o supervisor.</li>
+    </ul>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
 function jrCritico() {
   tela(`
     <h2>🔴 Risco Crítico</h2>
-    <p>Encaminhar imediatamente para o supervisor.</p>
-
+    <p><b>Ações necessárias:</b></p>
+    <ul>
+      <li>Enviar script descrito no fluxo.</li>
+      <li>Colocar a tag <b>responsible gambling</b> no Zendesk.</li>
+      <li>Encaminhar imediatamente para o supervisor.</li>
+    </ul>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
-/* START */
+/* ===================== CASHBACK ===================== */
+function inicioCashback() {
+  tela(`
+    <h2>Cálculo Individual Cashback</h2>
+    <div style="text-align: left;">
+      <label>Porcentagem do Cashback (1 a 25%):</label>
+      <input id="porcentagem" type="number" min="1" max="25" value="5">
+
+      <label>Total apostado (real_bet):</label>
+      <input id="real_bet" type="number" step="0.01" value="0">
+
+      <label>Total ganho (real_won):</label>
+      <input id="real_won" type="number" step="0.01" value="0">
+
+      <label>Cashback semana anterior:</label>
+      <input id="last_week_cb" type="number" step="0.01" value="0">
+
+      <label>Ganhos Giros Grátis:</label>
+      <input id="spins" type="number" step="0.01" value="0">
+
+      <label>Ganhos Recompensas (sell_amount):</label>
+      <input id="sell" type="number" step="0.01" value="0">
+
+      <label>Bônus convertidos (transfer_amount):</label>
+      <input id="trans" type="number" step="0.01" value="0">
+
+      <label>Rakeback total recebido:</label>
+      <input id="rake" type="number" step="0.01" value="0">
+
+      <label>Saques (withdrawals_amount):</label>
+      <input id="saque" type="number" step="0.01" value="0">
+    </div>
+    <button onclick="gerarResumo()">Pronto</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+    <div id="resultado"></div>
+  `);
+}
+
+function gerarResumo() {
+  let p = parseFloat(document.getElementById("porcentagem").value || 0);
+  const bet = parseFloat(document.getElementById("real_bet").value || 0);
+  const won = parseFloat(document.getElementById("real_won").value || 0);
+  const lastCb = parseFloat(document.getElementById("last_week_cb").value || 0);
+  const spins = parseFloat(document.getElementById("spins").value || 0);
+  const sell = parseFloat(document.getElementById("sell").value || 0);
+  const trans = parseFloat(document.getElementById("trans").value || 0);
+  const rake = parseFloat(document.getElementById("rake").value || 0);
+  const saque = parseFloat(document.getElementById("saque").value || 0);
+
+  const ganhosExtras = lastCb + spins + sell + trans + rake + saque;
+  const ganhosTotais = won + ganhosExtras;
+  const perdas = bet - ganhosTotais;
+  const valorFinalCb = perdas > 0 ? (perdas * (p / 100)) : 0;
+
+  const textoFinal = `É importante que saiba que o cashback semanal não é um ganho sobre o total de perdas que teve durante a semana.
+
+Para recebê-lo, durante a semana precisa ter tido mais perdas do que ganhos, e é a partir dessa diferença que é tirada sua porcentagem de cashback.
+
+Vamos rever seus valores:
+Total apostado = BRL ${bet.toFixed(2)}
+Total ganho = BRL ${won.toFixed(2)}
+
+Cashback da semana passada = BRL ${lastCb.toFixed(2)}
+Ganhos com giros grátis = BRL ${spins.toFixed(2)}
+Ganhos de recompensas = BRL ${sell.toFixed(2)}
+Bônus convertidos em reais = BRL ${trans.toFixed(2)}
+Rakeback = BRL ${rake.toFixed(2)}
+
+Ganhos totais considerados = BRL ${won.toFixed(2)} + BRL ${ganhosExtras.toFixed(2)} = BRL ${ganhosTotais.toFixed(2)}
+Perdas = BRL ${bet.toFixed(2)} - BRL ${ganhosTotais.toFixed(2)} = BRL ${perdas.toFixed(2)}
+Cashback (BRL ${perdas.toFixed(2)} - ${p}%) = BRL ${valorFinalCb.toFixed(2)}
+
+( Mais informações sobre como funciona o calculo do cashback em https://support.blaze-help.com/hc/pt-br/articles/360007716017-Como-funciona-o-cashback-reembolso )`;
+
+  document.getElementById("resultado").innerHTML = `
+    <pre id="preOutput">${textoFinal}</pre>
+    <button id="btnCopiar" onclick="executarCopia()">Copiar Mensagem</button>
+  `;
+}
+
+function executarCopia() {
+  const texto = document.getElementById("preOutput").innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    const btn = document.getElementById("btnCopiar");
+    btn.innerText = "✅ Copiado!";
+    setTimeout(() => btn.innerText = "Copiar Mensagem", 2000);
+  });
+}
+
 menu();
 </script>
 
