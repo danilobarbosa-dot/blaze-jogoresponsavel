@@ -323,7 +323,6 @@ function inicioCashback() {
 
       <label>Rakeback total recebido:</label>
       <input id="rake" type="number" step="0.01" value="0">
-      
     </div>
     <button onclick="gerarResumo()">Pronto</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
@@ -341,7 +340,7 @@ function gerarResumo() {
   const trans = parseFloat(document.getElementById("trans").value || 0);
   const rake = parseFloat(document.getElementById("rake").value || 0);
 
-  const ganhosExtras = lastCb + spins + sell + trans + rake + saque;
+  const ganhosExtras = lastCb + spins + sell + trans + rake;
   const ganhosTotais = won + ganhosExtras;
   const perdas = bet - ganhosTotais;
   const valorFinalCb = perdas > 0 ? (perdas * (p / 100)) : 0;
