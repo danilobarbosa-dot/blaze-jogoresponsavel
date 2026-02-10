@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Blaze – Jogo Responsável</title>
+  <title>Blaze – Fluxos de Atendimento</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -79,6 +79,11 @@
       width: 100px;
       opacity: 0.9;
     }
+
+    .info {
+      font-size: 14px;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
@@ -87,18 +92,144 @@
 
 <script>
 const app = document.getElementById("app");
+function tela(html){ app.innerHTML = html; }
 
-function tela(conteudo) {
-  app.innerHTML = conteudo;
+/* MENU INICIAL */
+function menu() {
+  tela(`
+    <h2>Fluxos de Atendimento</h2>
+    <p>Selecione o tipo de atendimento:</p>
+
+    <button onclick="inicioSaque()">💰 Problemas de Saque</button>
+    <button onclick="inicioJR()">🎯 Jogo Responsável</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
 }
 
-/* TELA INICIAL */
-function inicio() {
+/* ===================== SAQUE ===================== */
+
+function inicioSaque() {
+  tela(`
+    <h2>Problemas de Saque</h2>
+    <p>O cliente recebeu o saque?</p>
+    <button onclick="saqueRecebido()">Sim</button>
+    <button onclick="tempoSaque()">Não</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+function saqueRecebido() {
+  tela(`
+    <h2>Ótimo!</h2>
+    <p>
+      Os saques podem levar de <b>2 até 48 horas</b> para conclusão.
+      Oriente o cliente a aguardar o prazo padrão.
+    </p>
+
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+function tempoSaque() {
+  tela(`
+    <h2>Tempo do Saque</h2>
+    <p>Há quanto tempo o saque foi solicitado?</p>
+    <button onclick="statusSaque()">Menos de 48 horas</button>
+    <button onclick="saque48()">Mais de 48 horas</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+function statusSaque() {
+  tela(`
+    <h2>Status do Saque</h2>
+    <button onclick="pending()">Pending Review / Waiting Input</button>
+    <button onclick="complete()">Complete</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+function pending() {
+  tela(`
+    <h2>Saque em análise</h2>
+    <p>Oriente o cliente a aguardar o prazo padrão.</p>
+
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+function complete() {
+  tela(`
+    <h2>Saque concluído</h2>
+    <p>
+      O valor já foi enviado ao banco selecionado.
+      Oriente a verificar o extrato bancário.
+    </p>
+
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+function saque48() {
+  tela(`
+    <h2>Saque acima de 48 horas</h2>
+    <p>
+      Se o status estiver <b>Pending Review</b> ou <b>Waiting Input</b>,
+      oriente o cliente a preencher o formulário de problemas de transações.
+    </p>
+
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
+
+    <div class="logo-area">
+      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
+    </div>
+  `);
+}
+
+/* ===================== JOGO RESPONSÁVEL ===================== */
+
+function inicioJR() {
   tela(`
     <h2>Jogo Responsável</h2>
     <p>O cliente mencionou algo relacionado a apostas/jogo e problemas pessoais?</p>
-    <button onclick="naoMencionou()">Não</button>
-    <button onclick="classificacao()">Sim</button>
+
+    <button onclick="naoJR()">Não</button>
+    <button onclick="classificacaoJR()">Sim</button>
+
+    <p class="info">
+      📄 <b>Material de apoio</b><br>
+      Siga com o fluxograma aberto durante o atendimento.<br>
+      <a href="https://drive.google.com/file/d/1y0IAo5QAiXIH29zt8cofJHWLLo5uD_V3/view?usp=drive_link" target="_blank">
+        Acessar fluxograma em PDF
+      </a>
+    </p>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -106,18 +237,15 @@ function inicio() {
   `);
 }
 
-/* NÃO MENCIONOU */
-function naoMencionou() {
+function naoJR() {
   tela(`
     <h2>Orientação</h2>
     <p>
-      O cliente não mencionou problemas relacionados a apostas ou jogo.<br><br>
-      ➜ Siga o atendimento normalmente.<br>
-      ➜ Este fluxo deve ser utilizado apenas quando o cliente citar impactos
-      causados por apostas.
+      O cliente não mencionou problemas relacionados a apostas.<br><br>
+      ➜ Siga o atendimento normalmente.
     </p>
 
-    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -125,16 +253,15 @@ function naoMencionou() {
   `);
 }
 
-/* CLASSIFICAÇÃO */
-function classificacao() {
+function classificacaoJR() {
   tela(`
     <h2>Classificação de Risco</h2>
-    <p>Selecione a opção que melhor representa o relato do cliente:</p>
+    <button onclick="jrBaixo()">🟢 Risco Baixo</button>
+    <button onclick="jrMedio()">🟡 Risco Médio</button>
+    <button onclick="jrAlto()">🟠 Risco Alto</button>
+    <button onclick="jrCritico()">🔴 Risco Crítico</button>
 
-    <button onclick="baixo()">🟢 Risco Baixo</button>
-    <button onclick="medio()">🟡 Risco Médio</button>
-    <button onclick="alto()">🟠 Risco Alto</button>
-    <button onclick="critico()">🔴 Risco Crítico</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -142,30 +269,12 @@ function classificacao() {
   `);
 }
 
-/* RISCO BAIXO */
-function baixo() {
+function jrBaixo() {
   tela(`
     <h2>🟢 Risco Baixo</h2>
-    <p>
-      Exemplos de falas do cliente:
-    </p>
-    <ul>
-      <li>“Joguei mais do que devia, mas está sob controle”</li>
-      <li>“Só queria tentar ganhar de volta”</li>
-    </ul>
+    <p>Realizar acolhimento e seguir script de Jogo Responsável.</p>
 
-    <p>
-      ➜ Realizar acolhimento do cliente.<br>
-      ➜ Utilizar o script de Jogo Responsável disponível no material oficial.
-    </p>
-
-    <p>
-      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
-        Acessar material de apoio
-      </a>
-    </p>
-
-    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -173,35 +282,15 @@ function baixo() {
   `);
 }
 
-/* RISCO MÉDIO */
-function medio() {
+function jrMedio() {
   tela(`
     <h2>🟡 Risco Médio</h2>
     <p>
-      Exemplos de falas do cliente:
-    </p>
-    <ul>
-      <li>“Não consigo parar quando começo”</li>
-      <li>“Estou dormindo mal por causa das apostas”</li>
-      <li>“Problemas com a família”</li>
-    </ul>
-
-    <p>
-      ➜ Oferecer ferramentas de Jogo Responsável:
-    </p>
-    <ul>
-      <li>Autolimitação</li>
-      <li>Suspensão</li>
-      <li>Autoexclusão</li>
-    </ul>
-
-    <p>
-      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
-        Acessar material de apoio
-      </a>
+      Sugerir ferramentas de Jogo Responsável:
+      autolimitação, suspensão ou autoexclusão.
     </p>
 
-    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -209,31 +298,12 @@ function medio() {
   `);
 }
 
-/* RISCO ALTO */
-function alto() {
+function jrAlto() {
   tela(`
     <h2>🟠 Risco Alto</h2>
-    <p>
-      Exemplos de falas do cliente:
-    </p>
-    <ul>
-      <li>“Peguei dinheiro emprestado para apostar”</li>
-      <li>“Não consigo pagar minhas contas”</li>
-      <li>“Meu relacionamento acabou por causa disso”</li>
-    </ul>
+    <p>Encaminhar imediatamente para o supervisor.</p>
 
-    <p>
-      ➜ Encaminhar imediatamente para o <b>Supervisor</b>.<br>
-      ➜ Utilizar o script específico de risco alto.
-    </p>
-
-    <p>
-      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
-        Acessar material de apoio
-      </a>
-    </p>
-
-    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -241,30 +311,12 @@ function alto() {
   `);
 }
 
-/* RISCO CRÍTICO */
-function critico() {
+function jrCritico() {
   tela(`
     <h2>🔴 Risco Crítico</h2>
-    <p>
-      Exemplos de falas do cliente:
-    </p>
-    <ul>
-      <li>“Não vejo mais saída”</li>
-      <li>“Não quero mais estar aqui”</li>
-    </ul>
+    <p>Encaminhar imediatamente para o supervisor.</p>
 
-    <p>
-      ➜ Encaminhar imediatamente para o <b>Supervisor</b>.<br>
-      ➜ Seguir rigorosamente o script de risco crítico.
-    </p>
-
-    <p>
-      <a href="https://blazecs.slack.com/files/U0AAWTVN7HC/F0AEC486ZNU/fluxo_jogo_respons__vel.pdf" target="_blank">
-        Acessar material de apoio
-      </a>
-    </p>
-
-    <button class="secondary" onclick="inicio()">Reiniciar atendimento</button>
+    <button class="secondary" onclick="menu()">Voltar ao menu</button>
 
     <div class="logo-area">
       <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
@@ -273,7 +325,7 @@ function critico() {
 }
 
 /* START */
-inicio();
+menu();
 </script>
 
 </body>
