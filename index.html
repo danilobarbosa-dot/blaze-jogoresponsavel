@@ -1,148 +1,208 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Fluxo – Jogo Responsável</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
+<meta charset="UTF-8">
+<title>Fluxo – Jogo Responsável</title>
 
-    h1, h2 {
-      text-align: center;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+}
 
-    .section {
-      background: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 
-    .risk {
-      padding: 15px;
-      border-radius: 6px;
-      margin-bottom: 15px;
-    }
+h1, h2 {
+  text-align: center;
+}
 
-    .baixo { background: #d1fae5; }
-    .medio { background: #fef9c3; }
-    .alto { background: #ffedd5; }
-    .critico { background: #fee2e2; }
+.question {
+  margin: 25px 0;
+}
 
-    .risk h3 {
-      margin-top: 0;
-    }
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    .script {
-      background: #f1f5f9;
-      padding: 15px;
-      border-left: 5px solid #2563eb;
-      border-radius: 5px;
-      margin-top: 10px;
-      white-space: pre-line;
-    }
+.yes { background: #2563eb; color: white; }
+.no { background: #6b7280; color: white; }
 
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      opacity: 0.8;
-    }
+.baixo { background: #d1fae5; }
+.medio { background: #fef9c3; }
+.alto { background: #ffedd5; }
+.critico { background: #fee2e2; }
 
-    footer img {
-      max-width: 140px;
-    }
-  </style>
+.result {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+}
+
+.script {
+  background: #f1f5f9;
+  padding: 15px;
+  border-left: 5px solid #2563eb;
+  margin-top: 15px;
+  white-space: pre-line;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer img {
+  max-width: 130px;
+  opacity: 0.8;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>Fluxo de Tratamento – Jogo Responsável</h1>
-  <p style="text-align:center;">Material de treinamento para agentes</p>
+<div class="container">
 
-  <div class="section">
-    <h2>1️⃣ Etapas do Time de Atendimento</h2>
+<h1>Fluxo – Jogo Responsável</h1>
+<p style="text-align:center;">Fluxo interativo para agentes de atendimento</p>
 
-    <div class="risk baixo">
-      <h3>🟢 Risco Baixo</h3>
-      <p>Acolhimento e esclarecimento de dúvidas.  
-      Não escalar e não cadastrar em EBAC.</p>
-    </div>
+<!-- ETAPA 1 -->
+<div class="question" id="etapa1">
+  <h2>O cliente mencionou algo relacionado a apostas/jogo e problemas pessoais?</h2>
+  <button class="no" onclick="encerrar()">Não</button>
+  <button class="yes" onclick="mostrarRisco()">Sim</button>
+</div>
 
-    <div class="risk medio">
-      <h3>🟡 Risco Médio</h3>
-      <p>Acolhimento e sugestão de ferramentas de Jogo Responsável  
-      (autolimitação, suspensão ou autoexclusão).</p>
-    </div>
+<!-- ETAPA 2 -->
+<div class="question" id="etapa2" style="display:none;">
+  <h2>Classificação de risco (selecione apenas UMA opção)</h2>
 
-    <div class="risk alto">
-      <h3>🟠 Risco Alto</h3>
-      <p>Acolhimento + cadastro em EBAC.  
-      Encaminhar para supervisores e Jogo Responsável.</p>
-    </div>
+  <button class="baixo" onclick="resultadoBaixo()">🟢 Risco Baixo</button>
+  <button class="medio" onclick="resultadoMedio()">🟡 Risco Médio</button>
+  <button class="alto" onclick="resultadoAlto()">🟠 Risco Alto</button>
+  <button class="critico" onclick="resultadoCritico()">🔴 Risco Crítico</button>
+</div>
 
-    <div class="risk critico">
-      <h3>🔴 Risco Crítico</h3>
-      <p>Ação imediata. Cadastro em EBAC obrigatório.  
-      Encaminhamento urgente para Jogo Responsável.</p>
-    </div>
-  </div>
+<!-- RESULTADOS -->
+<div class="result baixo" id="resBaixo">
+<h2>🟢 RISCO BAIXO</h2>
+<p><strong>Ação do agente:</strong><br>
+• Acolhimento do cliente<br>
+• Seguir atendimento normalmente</p>
 
-  <div class="section">
-    <h2>2️⃣ Classificação de Risco</h2>
+<div class="script">
+SCRIPT – RISCO BAIXO
 
-    <div class="risk baixo">
-      <strong>Risco Baixo:</strong> frustração leve, sem dano evidente.
-    </div>
+Percebemos seu comentário e gostaríamos de reforçar nosso compromisso com o uso saudável da plataforma.
+Se desejar, você pode acessar nosso hotsite de Jogo Responsável para realizar um autoteste e refletir sobre seus hábitos.
+Estamos à disposição para qualquer orientação adicional.
+</div>
+</div>
 
-    <div class="risk medio">
-      <strong>Risco Médio:</strong> prejuízo financeiro leve/moderado e impacto emocional.
-    </div>
+<div class="result medio" id="resMedio">
+<h2>🟡 RISCO MÉDIO</h2>
+<p><strong>Ação do agente:</strong><br>
+• Sugerir ferramentas de Jogo Responsável<br>
+• Autolimitação, Suspensão ou Autoexclusão</p>
 
-    <div class="risk alto">
-      <strong>Risco Alto:</strong> perda severa, desespero e impacto familiar.
-    </div>
+<div class="script">
+SCRIPT – RISCO MÉDIO
 
-    <div class="risk critico">
-      <strong>Risco Crítico:</strong> risco extremo e necessidade de intervenção urgente.
-    </div>
-  </div>
+Entendemos sua preocupação e queremos garantir que você tenha o suporte necessário.
+Recomendamos acessar nosso hotsite de Jogo Responsável, onde você encontrará orientações e ferramentas de controle.
+Caso precise, você pode utilizar autolimitação, suspensão ou autoexclusão na aba de restrições.
+</div>
+</div>
 
-  <div class="section">
-    <h2>3️⃣ Scripts para Atendimento</h2>
+<div class="result alto" id="resAlto">
+<h2>🟠 RISCO ALTO</h2>
+<p><strong>Ação do agente:</strong><br>
+• Encaminhar para Supervisor<br>
+• Caso de Jogo Responsável</p>
 
-    <div class="script">
-🟢 RISCO BAIXO  
-Percebemos seu comentário e reforçamos nosso compromisso com o uso saudável da plataforma.  
-Você pode acessar nosso autoteste no hotsite de Jogo Responsável: [link].
-    </div>
+<div class="script">
+SCRIPT – RISCO ALTO
 
-    <div class="script">
-🟡 RISCO MÉDIO  
-Entendemos sua preocupação e recomendamos acessar nosso hotsite de apoio emocional e Jogo Responsável: [link].  
-Ferramentas como autolimitação, suspensão ou autoexclusão estão disponíveis.
-    </div>
+Agradecemos por compartilhar essa situação.
+Pelas informações apresentadas, é importante que você receba orientação especializada.
+Pedimos que aguarde enquanto encaminhamos seu caso para o time responsável por Jogo Responsável.
+</div>
+</div>
 
-    <div class="script">
-🟠 RISCO ALTO  
-Entendemos a gravidade da situação e pedimos que acesse nosso canal de apoio especializado: [link].  
-Você pode utilizar ferramentas de restrição caso necessário.
-    </div>
+<div class="result critico" id="resCritico">
+<h2>🔴 RISCO CRÍTICO</h2>
+<p><strong>Ação do agente (URGENTE):</strong><br>
+• Encaminhar imediatamente para Supervisor<br>
+• Jogo Responsável</p>
 
-    <div class="script">
-🔴 RISCO CRÍTICO  
-Sentimos muito que esteja passando por isso. Sua segurança é prioridade.  
-Entre em contato imediatamente com nosso atendimento especializado: [link].
-    </div>
-  </div>
+<div class="script">
+SCRIPT – RISCO CRÍTICO
 
-  <footer>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Blaze_logo.png" alt="Blaze Logo">
-  </footer>
+Sinto muito que você esteja passando por isso.
+Sua segurança é nossa prioridade neste momento.
+Pedimos que você entre em contato imediatamente com nosso atendimento especializado,
+onde profissionais preparados poderão ajudar agora.
+</div>
+</div>
+
+</div>
+
+<footer>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Blaze_logo.png" alt="Blaze">
+</footer>
+
+<script>
+function mostrarRisco() {
+  document.getElementById("etapa1").style.display = "none";
+  document.getElementById("etapa2").style.display = "block";
+}
+
+function encerrar() {
+  alert("Seguir atendimento normalmente.");
+}
+
+function esconderResultados() {
+  document.getElementById("resBaixo").style.display = "none";
+  document.getElementById("resMedio").style.display = "none";
+  document.getElementById("resAlto").style.display = "none";
+  document.getElementById("resCritico").style.display = "none";
+}
+
+function resultadoBaixo() {
+  esconderResultados();
+  document.getElementById("resBaixo").style.display = "block";
+}
+
+function resultadoMedio() {
+  esconderResultados();
+  document.getElementById("resMedio").style.display = "block";
+}
+
+function resultadoAlto() {
+  esconderResultados();
+  document.getElementById("resAlto").style.display = "block";
+}
+
+function resultadoCritico() {
+  esconderResultados();
+  document.getElementById("resCritico").style.display = "block";
+}
+</script>
 
 </body>
 </html>
