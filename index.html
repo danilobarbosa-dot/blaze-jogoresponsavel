@@ -102,11 +102,6 @@
       opacity: 0.9;
     }
 
-    .info {
-      font-size: 14px;
-      margin-top: 15px;
-    }
-
     label {
       display: block;
       text-align: left;
@@ -151,9 +146,6 @@ function inicioSaque() {
     <button onclick="saqueRecebido()">Sim</button>
     <button onclick="tempoSaque()">Não</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
@@ -161,11 +153,8 @@ function saqueRecebido() {
   tela(`
     <h2>Ótimo!</h2>
     <p>Os saques podem levar de <b>2 até 48 horas</b> para que nosso intermediário financeiro conclua o processamento.<br><br>Oriente sempre o cliente a aguardar o prazo padrão.</p>
-    <button class="secondary" onclick="inicioSaque()">Reiniciar atendimento</button>
+    <button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
   `);
 }
 
@@ -191,15 +180,15 @@ function statusSaque() {
 }
 
 function pending() {
-  tela(`<h2>Saque em análise</h2><p>Oriente o cliente a aguardar o prazo padrão.<br><br>Envie o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
+  tela(`<h2>Saque em análise</h2><p>Oriente o cliente a aguardar o prazo padrão.<br><br>Envie o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function refunded() {
-  tela(`<h2>Saque reembolsado</h2><p>O saque foi reembolsado a pedido do usuário. Oriente o cliente a solicitar novamente e enviar o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
+  tela(`<h2>Saque reembolsado</h2><p>O saque foi reembolsado a pedido do usuário. Oriente o cliente a solicitar novamente e enviar o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function complete() {
-  tela(`<h2>Saque concluído</h2><p>O valor já foi enviado ao banco. Oriente a verificar o extrato ou utilizar <b>/contact form</b>.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
+  tela(`<h2>Saque concluído</h2><p>O valor já foi enviado ao banco. Oriente a verificar o extrato ou utilizar <b>/contact form</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function saque48() {
@@ -207,13 +196,14 @@ function saque48() {
     <h2>Saque acima de 48 horas</h2>
     <p>Quando um saque ultrapassa <b>48 horas</b>, é necessário verificar o <b>status da transação</b>.</p>
     <p>Se o status estiver como <b>Pending Review</b> ou <b>Waiting Input</b> após 48 horas, preencher o formulário:</p>
-    <p><a href="https://support.blaze-help.com/hc/pt-br/articles/13980562814492-Base-Chat-Transaction-Issues-Form" target="_blank">Acessar formulário de problemas de transações</a></p>
+    <p><a href="https://support.blaze-help.com/hc/pt-br/articles/13980562814492-Base-Chat-Transaction-Issues-Form" target="_blank">Acessar formulário de transações</a></p>
     <ul>
       <li>Preencher planilha BCTIF</li>
       <li><a href="https://docs.google.com/document/d/1nAdViRyXykIXYSqihMK8LlVlXgCsm09vH6qBhmdWN6E/edit" target="_blank">Procedimentos BCTIF</a></li>
     </ul>
     <p>Se status for <b>Complete</b> e cliente não localizou:</p>
     <p><a href="https://docs.google.com/document/d/19_tKhSg62ZGcmtLplxcYjoGRfxt43z5FfuG476dNE50/edit" target="_blank">Acessar formulário de contato</a></p>
+    <button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
   `);
 }
@@ -227,7 +217,7 @@ function inicioJR() {
     <button onclick="naoJR()">Não</button>
     <button onclick="classificacaoJR()">Sim</button>
 
-    <p class="info">
+    <p style="font-size: 14px; margin-top: 15px;">
       📄 <b>Material de apoio</b><br>
       Siga com o fluxograma aberto durante o atendimento.<br>
       <a href="https://drive.google.com/file/d/1y0IAo5QAiXIH29zt8cofJHWLLo5uD_V3/view?usp=drive_link" target="_blank">
@@ -235,19 +225,12 @@ function inicioJR() {
       </a>
     </p>
 
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
   `);
 }
 
 function naoJR() {
-  tela(`
-    <h2>Orientação</h2>
-    <p>O cliente não mencionou problemas relacionados a apostas.<br><br>➜ Siga o atendimento normalmente.</p>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-  `);
+  tela(`<h2>Orientação</h2><p>O cliente não mencionou problemas relacionados a apostas.<br><br>➜ Siga o atendimento normalmente.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 function classificacaoJR() {
@@ -261,13 +244,8 @@ function classificacaoJR() {
   `);
 }
 
-function jrBaixo() {
-  tela(`<h2>🟢 Risco Baixo</h2><p>Realizar acolhimento e seguir o script de Jogo Responsável.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
-}
-
-function jrMedio() {
-  tela(`<h2>🟡 Risco Médio</h2><p>Sugerir ferramentas de Jogo Responsável: autolimitação, suspensão temporária ou autoexclusão.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
-}
+function jrBaixo() { tela(`<h2>🟢 Risco Baixo</h2><p>Realizar acolhimento e seguir o script.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`); }
+function jrMedio() { tela(`<h2>🟡 Risco Médio</h2><p>Sugerir ferramentas: autolimitação, suspensão ou autoexclusão.</p><button class="secondary" onclick="menu()">Voltar ao menu</button>`); }
 
 function jrAlto() {
   tela(`
@@ -331,7 +309,7 @@ function inicioCashback() {
 }
 
 function gerarResumo() {
-  let p = parseFloat(document.getElementById("porcentagem").value || 0);
+  const p = parseFloat(document.getElementById("porcentagem").value || 0);
   const bet = parseFloat(document.getElementById("real_bet").value || 0);
   const won = parseFloat(document.getElementById("real_won").value || 0);
   const lastCb = parseFloat(document.getElementById("last_week_cb").value || 0);
