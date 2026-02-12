@@ -162,7 +162,7 @@ function menu() {
   `);
 }
 
-/* ===================== LINKS ÚTEIS - BLOG ===================== */
+/* ===================== BLOG ===================== */
 function linksUteis() {
   const links = [
     { n: "Lei dos Grandes Números", l: "https://blaze.bet.br/pt/blog/article/lei-dos-grandes-numeros-nas-apostas" },
@@ -189,14 +189,8 @@ function linksUteis() {
     { n: "Sistema Suíço", l: "https://blaze.bet.br/pt/blog/article/sistema-suico" },
     { n: "Tipster nas Apostas", l: "https://blaze.bet.br/pt/blog/article/tipster-nas-apostas-esportivas" }
   ];
-
-  let htmlLinks = links.map(link => `<a href="${link.l}" target="_blank" class="link-item">🔗 ${link.n}</a>`).join('');
-
-  tela(`
-    <h2>Links Úteis - Blog</h2>
-    <div class="link-list">${htmlLinks}</div>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-  `);
+  let h = links.map(k => `<a href="${k.l}" target="_blank" class="link-item">🔗 ${k.n}</a>`).join('');
+  tela(`<h2>Links Úteis - Blog</h2><div class="link-list">${h}</div><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
 }
 
 /* ===================== PROBLEMAS DE SAQUE ===================== */
@@ -207,9 +201,7 @@ function inicioSaque() {
     <button onclick="saqueRecebido()">Sim</button>
     <button onclick="tempoSaque()">Não</button>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
@@ -243,36 +235,27 @@ function statusSaque() {
   `);
 }
 
-function pending() {
-  tela(`<h2>Saque em análise</h2><p>Oriente o cliente a aguardar o prazo padrão.<br><br>Envie o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
-}
-
-function refunded() {
-  tela(`<h2>Saque reembolsado</h2><p>O saque foi reembolsado a pedido do usuário. Oriente o cliente a solicitar novamente e enviar o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
-}
-
-function complete() {
-  tela(`<h2>Saque concluído</h2><p>O valor já foi enviado ao banco. Oriente a verificar o extrato ou utilizar <b>/contact form</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button><button class="secondary" onclick="menu()">Voltar ao menu</button>`);
-}
+function pending() { tela(`<h2>Saque em análise</h2><p>Oriente o cliente a aguardar o prazo padrão.<br><br>Envie o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>`); }
+function refunded() { tela(`<h2>Saque reembolsado</h2><p>O saque foi reembolsado a pedido do usuário. Oriente o cliente a solicitar novamente e enviar o atalho <b>/prazo saque</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>`); }
+function complete() { tela(`<h2>Saque concluído</h2><p>O valor já foi enviado ao banco. Oriente a verificar o extrato ou utilizar <b>/contact form</b>.</p><button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>`); }
 
 function saque48() {
   tela(`
     <h2>Saque acima de 48 horas</h2>
     <p>Quando um saque ultrapassa <b>48 horas</b>, é necessário verificar o <b>status da transação</b>:</p>
-    <p>Se <b>Pending Review/Waiting Input</b>, preencher o formulário:</p>
+    <p>Se status estiver como <b>Pending Review</b> ou <b>Waiting Input</b> após 48 horas, preencher o formulário:</p>
     <p><a href="https://support.blaze-help.com/hc/pt-br/articles/13980562814492-Base-Chat-Transaction-Issues-Form" target="_blank">Acessar formulário de transações</a></p>
     <ul>
       <li>Preencher planilha BCTIF</li>
       <li><a href="https://docs.google.com/document/d/1nAdViRyXykIXYSqihMK8LlVlXgCsm09vH6qBhmdWN6E/edit" target="_blank">Procedimentos BCTIF</a></li>
     </ul>
-    <p>Se status for <b>Complete</b> e cliente não localizou:</p>
+    <p>Se status estiver como <b>Complete</b> e cliente não localizou:</p>
     <p><a href="https://docs.google.com/document/d/19_tKhSg62ZGcmtLplxcYjoGRfxt43z5FfuG476dNE50/edit" target="_blank">Acessar formulário de contato</a></p>
     <button class="secondary" onclick="inicioSaque()">Reiniciar fluxo</button>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
   `);
 }
 
-/* ===================== JOGO RESPONSÁVEL (RESTAURADO COMPLETO) ===================== */
+/* ===================== JOGO RESPONSÁVEL (ESTRUTURA COMPLETA) ===================== */
 function inicioJR() {
   tela(`
     <h2>Jogo Responsável</h2>
@@ -284,9 +267,7 @@ function inicioJR() {
     <p style="font-size: 14px; margin-top: 15px;">
       📄 <b>Material de apoio</b><br>
       Siga com o fluxograma aberto durante o atendimento.<br>
-      <a href="https://drive.google.com/file/d/1y0IAo5QAiXIH29zt8cofJHWLLo5uD_V3/view?usp=drive_link" target="_blank">
-        Acessar fluxograma em PDF
-      </a>
+      <a href="https://drive.google.com/file/d/1y0IAo5QAiXIH29zt8cofJHWLLo5uD_V3/view?usp=drive_link" target="_blank">Acessar fluxograma em PDF</a>
     </p>
 
     <div class="logo-area">
@@ -299,16 +280,9 @@ function inicioJR() {
 function naoJR() {
   tela(`
     <h2>Orientação</h2>
-    <p>
-      O cliente não mencionou problemas relacionados a apostas.<br><br>
-      ➜ Siga o atendimento normalmente.
-    </p>
-
+    <p>O cliente não mencionou problemas relacionados a apostas.<br><br>➜ Siga o atendimento normalmente.</p>
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
@@ -319,12 +293,8 @@ function classificacaoJR() {
     <button onclick="jrMedio()">🟡 Risco Médio</button>
     <button onclick="jrAlto()">🟠 Risco Alto</button>
     <button onclick="jrCritico()">🔴 Risco Crítico</button>
-
     <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
@@ -333,27 +303,16 @@ function jrBaixo() {
     <h2>🟢 Risco Baixo</h2>
     <p>Realizar acolhimento e seguir o script de Jogo Responsável.</p>
     <button class="secondary" onclick="classificacaoJR()">Voltar</button>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
 function jrMedio() {
   tela(`
     <h2>🟡 Risco Médio</h2>
-    <p>
-      Sugerir ferramentas de Jogo Responsável:
-      autolimitação, suspensão temporária ou autoexclusão.
-    </p>
+    <p>Sugerir ferramentas de Jogo Responsável: autolimitação, suspensão temporária ou autoexclusão.</p>
     <button class="secondary" onclick="classificacaoJR()">Voltar</button>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
@@ -367,11 +326,7 @@ function jrAlto() {
       <li>Encaminhar imediatamente para o supervisor.</li>
     </ul>
     <button class="secondary" onclick="classificacaoJR()">Voltar</button>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
@@ -385,11 +340,7 @@ function jrCritico() {
       <li>Encaminhar imediatamente para o supervisor.</li>
     </ul>
     <button class="secondary" onclick="classificacaoJR()">Voltar</button>
-    <button class="secondary" onclick="menu()">Voltar ao menu</button>
-
-    <div class="logo-area">
-      <img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png">
-    </div>
+    <div class="logo-area"><img src="https://logodownload.org/wp-content/uploads/2022/08/blaze-logo-0.png"></div>
   `);
 }
 
@@ -422,19 +373,19 @@ function inicioCashback() {
 }
 
 function gerarResumo() {
-  const p = parseFloat(document.getElementById("porcentagem").value || 0);
-  const bet = parseFloat(document.getElementById("real_bet").value || 0);
-  const won = parseFloat(document.getElementById("real_won").value || 0);
-  const lastCb = parseFloat(document.getElementById("last_week_cb").value || 0);
-  const spins = parseFloat(document.getElementById("spins").value || 0);
-  const sell = parseFloat(document.getElementById("sell").value || 0);
-  const trans = parseFloat(document.getElementById("trans").value || 0);
-  const rake = parseFloat(document.getElementById("rake").value || 0);
+  const p = parseFloat(document.getElementById("porcentagem").value || 0),
+        bet = parseFloat(document.getElementById("real_bet").value || 0),
+        won = parseFloat(document.getElementById("real_won").value || 0),
+        lastCb = parseFloat(document.getElementById("last_week_cb").value || 0),
+        spins = parseFloat(document.getElementById("spins").value || 0),
+        sell = parseFloat(document.getElementById("sell").value || 0),
+        trans = parseFloat(document.getElementById("trans").value || 0),
+        rake = parseFloat(document.getElementById("rake").value || 0);
 
-  const ganhosExtras = lastCb + spins + sell + trans + rake;
-  const ganhosTotais = won + ganhosExtras;
-  const perdas = bet - ganhosTotais;
-  const valorFinalCb = perdas > 0 ? (perdas * (p / 100)) : 0;
+  const ex = lastCb + spins + sell + trans + rake;
+  const gt = won + ex;
+  const per = bet - gt;
+  const fcb = per > 0 ? (per * (p / 100)) : 0;
 
   const textoFinal = `É importante que saiba que o cashback semanal não é um ganho sobre o total de perdas que teve durante a semana.
 
@@ -450,41 +401,39 @@ Ganhos de recompensas = BRL ${sell.toFixed(2)}
 Bônus convertidos em reais = BRL ${trans.toFixed(2)}
 Rakeback = BRL ${rake.toFixed(2)}
 
-Ganhos totais considerados = BRL ${won.toFixed(2)} + BRL ${ganhosExtras.toFixed(2)} = BRL ${ganhosTotais.toFixed(2)}
-Perdas = BRL ${bet.toFixed(2)} - BRL ${ganhosTotais.toFixed(2)} = BRL ${perdas.toFixed(2)}
-Cashback (BRL ${perdas.toFixed(2)} - ${p}%) = BRL ${valorFinalCb.toFixed(2)}
+Ganhos totais considerados = BRL ${won.toFixed(2)} + BRL ${ex.toFixed(2)} = BRL ${gt.toFixed(2)}
+Perdas = BRL ${bet.toFixed(2)} - BRL ${gt.toFixed(2)} = BRL ${per.toFixed(2)}
+Cashback (BRL ${per.toFixed(2)} - ${p}%) = BRL ${fcb.toFixed(2)}
 
 ( Mais informações sobre como funciona o calculo do cashback em https://support.blaze-help.com/hc/pt-br/articles/360007716017-Como-funciona-o-cashback-reembolso )`;
 
-  document.getElementById("resultado").innerHTML = `
-    <pre id="preOutput">${textoFinal}</pre>
-    <button id="btnCopiar" onclick="executarCopia()">Copiar Mensagem</button>
-  `;
+  document.getElementById("resultado").innerHTML = `<pre id="preOutput">${textoFinal}</pre><button id="btnCopiar" onclick="executarCopia()">Copiar Mensagem</button>`;
 }
 
 function executarCopia() {
   const texto = document.getElementById("preOutput").innerText;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(texto).then(sucessoCopia);
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(texto).then(() => sucessoCopia()).catch(() => fallbackCopia(texto));
   } else {
-    const ta = document.createElement("textarea");
-    ta.value = texto;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    sucessoCopia();
+    fallbackCopia(texto);
   }
 }
 
+function fallbackCopia(texto) {
+  const ta = document.createElement("textarea");
+  ta.value = texto; ta.style.position = "fixed";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); sucessoCopia(); } catch (err) {}
+  document.body.removeChild(ta);
+}
+
 function sucessoCopia() {
-  const b = document.getElementById("btnCopiar");
-  b.innerText = "✅ Copiado!";
-  setTimeout(() => b.innerText = "Copiar Mensagem", 2000);
+  const btn = document.getElementById("btnCopiar");
+  btn.innerText = "✅ Copiado!"; btn.style.background = "#28a745";
+  setTimeout(() => { btn.innerText = "Copiar Mensagem"; btn.style.background = "#e10600"; }, 2000);
 }
 
 menu();
 </script>
-
 </body>
 </html>
